@@ -90,8 +90,8 @@ namespace RoboTek
                    GraphicsUnit.Pixel);
 
             g.DrawImage(walk_img[dir][current_sprite],
-                   new Rectangle((x + y + dir_dir[dir, 0] + dir_dir[dir, 1]) * map.half_tile_width + image_offset_x, (x + dir_dir[dir, 0] - y - dir_dir[dir, 1]) * map.half_tile_height + offset_y + image_offset_y - level * 22, map.tile_width, walk_img[dir][current_sprite].Height),
-                   new Rectangle(walk_img[dir][current_sprite].Width / 2 - map.half_tile_width - offset_x + dir_dir[dir, 0] * map.tile_width, 0, map.tile_width, walk_img[dir][current_sprite].Height),
+                   new Rectangle((x + y + 2*dir_calc[dir, 0]) * map.half_tile_width + image_offset_x, (x - y) * map.half_tile_height + offset_y + image_offset_y - level * 22, map.tile_width, walk_img[dir][current_sprite].Height),
+                   new Rectangle(walk_img[dir][current_sprite].Width / 2 - map.half_tile_width - offset_x + dir_calc[dir, 0] * map.tile_width, 0, map.tile_width, walk_img[dir][current_sprite].Height),
                    //new Rectangle(walk_img[dir][current_sprite].Width / 2 - map.half_tile_width - offset_x, 0, map.tile_width, walk_img[dir][current_sprite].Height),
                    GraphicsUnit.Pixel);
             
