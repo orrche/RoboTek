@@ -59,6 +59,7 @@ namespace RoboTek
                     possible = true;
                 else
                     possible = false;
+
                 for (int i = 0; i < objs_at_dest.Count; i++)
                 {
                     if (objs_at_dest[i].getLevel() == level)
@@ -84,16 +85,32 @@ namespace RoboTek
             {
                 current_sprite = 0;
                 bool possible = true;
+                int target_lvl = -99;
                 List<MapObject> objs_at_dest = map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]);
                 for (int i = 0; i < objs_at_dest.Count; i++)
                 {
-                    if (objs_at_dest[i].getLevel() == level+1)
+                    int obj_level = objs_at_dest[i].getLevel();
+                    if (obj_level == level + 1)
+                    {
                         possible = false;
+                        break;
+                    }
+                    if (obj_level < level + 1)
+                    {
+                        if (obj_level+1 > target_lvl)
+                            target_lvl = obj_level+1;
+                    }
+                }
+                if (objs_at_dest.Count == 0)
+                {
+                    if (level == 0)
+                        possible = false;
+                    target_lvl = 0;    
                 }
                 if (possible)
                 {
                     moving = true;
-                    level++;
+                    level = target_lvl;
                     ghost.setPos(x + dir_dir[dir, 0], y + dir_dir[dir, 1], level);
                     map.ReSort();
                 }
