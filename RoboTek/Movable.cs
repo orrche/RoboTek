@@ -44,7 +44,14 @@ namespace RoboTek
             {
                 dir = new_dir;
                 current_sprite = 0;
-                if (map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]).Count == 0)
+                bool possible = true;
+                List<MapObject> objs_at_dest = map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]);
+                for (int i = 0; i < objs_at_dest.Count; i++)
+                {
+                    if (objs_at_dest[i].getLevel() == level)
+                        possible = false;
+                }
+                if (possible)
                 {
                     moving = true;
                     ghost.setPos(x + dir_dir[dir, 0], y + dir_dir[dir, 1], level);

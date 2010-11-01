@@ -38,7 +38,7 @@ namespace RoboTek
                 for (int i = 0; i < x + 1; i++)
                 {
                     MapObject wall = new MapObject(this, "wall");
-                    wall.setPos(4 + x, 0, i);
+                    wall.setPos(4 + x, level, i-1);
                     objs.Add(wall);
 
                 }

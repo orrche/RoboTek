@@ -53,6 +53,11 @@ namespace RoboTek
 
         }
 
+        public int getLevel()
+        {
+            return level;
+        }
+
         public bool at(int x, int y)
         {
             return this.x == x && this.y == y;
