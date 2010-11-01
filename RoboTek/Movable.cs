@@ -53,6 +53,8 @@ namespace RoboTek
                 current_sprite = 0;
                 bool possible = true;
                 List<MapObject> objs_at_dest = map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]);
+
+                // Change this if to possible = false, later when there is complete maps.
                 if (objs_at_dest.Count == 0 && level == 0)
                     possible = true;
                 else
