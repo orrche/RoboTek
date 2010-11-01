@@ -48,7 +48,7 @@ namespace RoboTek
                 }
             }
 
-            image_offset_x = -walk_img[0][0].Width / 2+1;
+            image_offset_x = -map.half_tile_width;
             image_offset_y = -walk_img[0][0].Height / 2-44; // This is sooo bad
 
         }
