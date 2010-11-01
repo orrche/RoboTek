@@ -27,7 +27,7 @@ namespace RoboTek
 
             half_tile_height = tile_height / 2;
             half_tile_width = tile_width / 2;
-            dude = new MapObject(this, "gubbe");
+            dude = new Movable(this, "gubbe");
 
             objs.Add(dude);
 
@@ -47,6 +47,12 @@ namespace RoboTek
             ReSort();
 
         }
+
+        public void addObj(MapObject obj)
+        {
+            objs.Add(obj);
+        }
+
         public void ReSort()
         {
             if (in_draw)
@@ -61,6 +67,11 @@ namespace RoboTek
         }
         public void Draw(Graphics g)
         {
+            for (int i = 0; i < objs.Count; i++)
+            {
+                objs[i].Update();                
+            }
+
             in_draw = true;
             if (draw_guide_lines)
             {
