@@ -38,6 +38,7 @@
             this.pf.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.pf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pf.Location = new System.Drawing.Point(12, 12);
             this.pf.Name = "pf";
             this.pf.Size = new System.Drawing.Size(260, 238);
@@ -46,7 +47,7 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 50;
+            this.timer1.Interval = 40;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1

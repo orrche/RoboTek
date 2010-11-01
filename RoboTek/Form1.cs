@@ -12,13 +12,16 @@ namespace RoboTek
     public partial class Form1 : Form
     {
         MapObject gubben;
+        Map map = new Map();
+
         public Form1()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            gubben = new MapObject("gubbe");
+           
+            gubben = map.getPlayer();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,9 +35,14 @@ namespace RoboTek
             using (Graphics g = Graphics.FromImage(bufl))
             {
                 g.FillRectangle(Brushes.White, new Rectangle(0, 0, pf.Width, pf.Height));
-                gubben.Draw(g);
+                
+                map.Draw(g);
                 pf.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
             }
+
+
+
+            this.Text = "Gubbe: [" + gubben.getX() + ", " + gubben.getY() + "]";
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
