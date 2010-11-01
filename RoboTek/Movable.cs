@@ -39,10 +39,17 @@ namespace RoboTek
         }
         public override void setDir(int new_dir)
         {
-            
+
             if (!moving)
             {
                 dir = new_dir;
+            } 
+        }
+
+        public virtual void moveForward()
+        {
+            if (!moving)
+            {
                 current_sprite = 0;
                 bool possible = true;
                 List<MapObject> objs_at_dest = map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]);
@@ -59,6 +66,29 @@ namespace RoboTek
                 }
             } 
         }
+
+        public virtual void Jump()
+        {
+            if (!moving)
+            {
+                current_sprite = 0;
+                bool possible = true;
+                List<MapObject> objs_at_dest = map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]);
+                for (int i = 0; i < objs_at_dest.Count; i++)
+                {
+                    if (objs_at_dest[i].getLevel() == level+1)
+                        possible = false;
+                }
+                if (possible)
+                {
+                    moving = true;
+                    level++;
+                    ghost.setPos(x + dir_dir[dir, 0], y + dir_dir[dir, 1], level);
+                    map.ReSort();
+                }
+            } 
+        }
+
         public override void Update()
         {
 
@@ -72,7 +102,7 @@ namespace RoboTek
                     current_sprite = 0;
                     x += dir_dir[dir, 0];
                     y += dir_dir[dir, 1];
-                    map.ReSort(); // Causes problem because we are already in a draw cycle
+                    map.ReSort();
                     offset_y = offset_x = 0;
                     moving = false;
                 }

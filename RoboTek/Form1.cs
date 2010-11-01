@@ -11,7 +11,7 @@ namespace RoboTek
 {
     public partial class Form1 : Form
     {
-        MapObject gubben;
+        Movable gubben;
         Map map = new Map();
 
         public Form1()
@@ -50,18 +50,26 @@ namespace RoboTek
             if (e.KeyCode == Keys.Up)
             {
                 gubben.setDir(3);
+                gubben.moveForward();
             }
             else if (e.KeyCode == Keys.Right)
             {
                 gubben.setDir(0);
+                gubben.moveForward();
             }
             else if (e.KeyCode == Keys.Down)
             {
                 gubben.setDir(1);
+                gubben.moveForward();
             }
             else if (e.KeyCode == Keys.Left)
             {
                 gubben.setDir(2);
+                gubben.moveForward();
+            }
+            else if (e.KeyCode == Keys.Space)
+            {
+                gubben.Jump();
             }
         }
     }

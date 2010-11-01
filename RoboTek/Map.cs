@@ -19,7 +19,7 @@ namespace RoboTek
         bool in_draw = false;
 
         Pen pen = new Pen(Brushes.Black);
-        MapObject dude;
+        Movable dude;
 
         List<MapObject> objs = new List<MapObject>();
         public Map()
@@ -75,7 +75,7 @@ namespace RoboTek
                 objs.Sort();
         }
 
-        public MapObject getPlayer()
+        public Movable getPlayer()
         {
             return dude;
         }
