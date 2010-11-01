@@ -42,7 +42,7 @@ namespace RoboTek
 
 
 
-            this.Text = "Gubbe: [" + gubben.getX() + ", " + gubben.getY() + "]";
+            this.Text = string.Format("Gubbe: [{0}, {1}, {2}]", gubben.getX(), gubben.getY(), gubben.getLevel());
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
