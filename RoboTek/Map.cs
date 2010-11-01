@@ -35,10 +35,10 @@ namespace RoboTek
             {
 
                 int level = 0;
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < x + 1; i++)
                 {
                     MapObject wall = new MapObject(this, "wall");
-                    wall.setPos(4 + i, level, x);
+                    wall.setPos(4 + x, 0, i);
                     objs.Add(wall);
 
                 }
@@ -51,6 +51,20 @@ namespace RoboTek
         public void addObj(MapObject obj)
         {
             objs.Add(obj);
+        }
+
+        public List<MapObject> at(int x, int y)
+        {
+            List<MapObject> at_objs = new List<MapObject>();
+
+            for (int i = 0; i < objs.Count; i++)
+            {
+                if (objs[i].at(x, y))
+                    at_objs.Add(objs[i]);
+            }
+
+            return at_objs;
+
         }
 
         public void ReSort()

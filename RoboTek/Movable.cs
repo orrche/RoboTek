@@ -39,13 +39,17 @@ namespace RoboTek
         }
         public override void setDir(int new_dir)
         {
+            
             if (!moving)
             {
                 dir = new_dir;
                 current_sprite = 0;
-                moving = true;
-                ghost.setPos(x + dir_dir[dir,0], y + dir_dir[dir,1], level);
-                map.ReSort();
+                if (map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]).Count == 0)
+                {
+                    moving = true;
+                    ghost.setPos(x + dir_dir[dir, 0], y + dir_dir[dir, 1], level);
+                    map.ReSort();
+                }
             } 
         }
         public override void Update()

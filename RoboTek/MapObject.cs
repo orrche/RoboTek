@@ -53,6 +53,11 @@ namespace RoboTek
 
         }
 
+        public bool at(int x, int y)
+        {
+            return this.x == x && this.y == y;
+        }
+
         public string getName()
         {
             return name;
