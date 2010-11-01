@@ -53,10 +53,19 @@ namespace RoboTek
                 current_sprite = 0;
                 bool possible = true;
                 List<MapObject> objs_at_dest = map.at(x + dir_dir[dir, 0], y + dir_dir[dir, 1]);
+                if (objs_at_dest.Count == 0 && level == 0)
+                    possible = true;
+                else
+                    possible = false;
                 for (int i = 0; i < objs_at_dest.Count; i++)
                 {
                     if (objs_at_dest[i].getLevel() == level)
+                    {
                         possible = false;
+                        break;
+                    }
+                    if (objs_at_dest[i].getLevel() == level - 1)
+                        possible = true;
                 }
                 if (possible)
                 {
