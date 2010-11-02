@@ -21,7 +21,8 @@ namespace RoboTek
 
         protected bool moving = false;
 
-        protected static Region[] sub_clip_region = new Region[2]; 
+        protected static Region[] sub_clip_region = new Region[2];
+        int end_level;
 
         public Movable(Map m, string name)
             : base(m, name)
@@ -136,8 +137,11 @@ namespace RoboTek
                 }
                 if (possible)
                 {
+                    if (target_lvl < level)
+                        end_level = target_lvl;
+                    else
+                        end_level = level = target_lvl;
                     moving = true;
-                    level = target_lvl;
                     ghost.setPos(x + dir_dir[dir, 0], y + dir_dir[dir, 1], level);
                     map.ReSort();
                 }
@@ -157,6 +161,7 @@ namespace RoboTek
                     current_sprite = 0;
                     x += dir_dir[dir, 0];
                     y += dir_dir[dir, 1];
+                    level = end_level;
                     map.ReSort();
                     offset_y = offset_x = 0;
                     moving = false;
