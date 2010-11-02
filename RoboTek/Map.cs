@@ -19,6 +19,8 @@ namespace RoboTek
         public int half_tile_width;
         public int half_tile_height;
 
+        public int acceptable_score = 0;
+
         bool draw_guide_lines = false;
         bool sort_queued = false;
         bool in_draw = false;
@@ -60,6 +62,7 @@ namespace RoboTek
                 XmlNode dataNode = xmlDoc.ChildNodes[dataNodes];
                 if (dataNode.Name == "map")
                 {
+                    acceptable_score = Convert.ToInt32(dataNode.Attributes["acc_score"].InnerText);
                     if (dataNode.Attributes["next"] != null)
                         nextmap = dataNode.Attributes["next"].InnerText;
                     else

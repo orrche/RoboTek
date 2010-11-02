@@ -17,10 +17,14 @@ namespace RoboTek
         List<TimeSpan> times = new List<TimeSpan>();
         Stopwatch sw;
         double avg = 0;
+        Thread oThread;
 
         public Form1()
         {
             InitializeComponent();
+            MapLoader ml = new MapLoader();
+            ml.ShowDialog();
+
             map = new Map(Properties.Settings.Default.level);
 
             this.SetStyle(ControlStyles.UserPaint, true);
@@ -31,9 +35,11 @@ namespace RoboTek
             pf.Paint += new PaintEventHandler(pf_Paint);
 
 
-            Thread oThread = new Thread(new ThreadStart(this.runtAutomater));
+            oThread = new Thread(new ThreadStart(this.runtAutomater));
             oThread.Start();
-            
+           
+
+            timer1.Enabled = true;
         }
 
         void pf_Paint(object sender, PaintEventArgs e)
@@ -108,9 +114,16 @@ namespace RoboTek
             c._wait();
             if (map.finnished && c.cheating == false)
             {
-                if (MessageBox.Show("Du använde: " + c.line_numbers.Count + " kommandon\r\noch klarade kartan\r\nVill du ladda nästa karta?", "WIN", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (map.acceptable_score < c.line_numbers.Count)
                 {
-                    map.LoadNextMap();
+                    MessageBox.Show("Du använde: " + c.line_numbers.Count + " kommandon\r\nVilket var över banans max på " + map.acceptable_score, "FAIL");
+                }
+                else
+                {
+                    if (MessageBox.Show("Du använde: " + c.line_numbers.Count + " kommandon\r\noch klarade kartan\r\nVill du ladda nästa karta?", "WIN", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        map.LoadNextMap();
+                    }
                 }
             }
             else
@@ -124,6 +137,11 @@ namespace RoboTek
 
             
             
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            oThread.Abort();
         }
     }
 }

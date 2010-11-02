@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<map next="level2">
+<map next="level2" acc_score="10">
   <!-- Ground -->
   <mapobject name="wall" x="7" y="-4" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="7" y="-3" level="-1" walkable="true"></mapobject>
