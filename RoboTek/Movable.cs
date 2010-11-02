@@ -153,7 +153,7 @@ namespace RoboTek
                         possible = false;
                     target_lvl = 0;    
                 }
-                if (possible)
+                if (possible && target_lvl != level)
                 {
                     if (target_lvl < level)
                         end_level = target_lvl;
