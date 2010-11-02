@@ -116,6 +116,13 @@ namespace RoboTek
                     if (objs_at_dest[i].getLevel() == level - 1)
                         possible = true;
                 }
+
+                if (objs_at_dest.Count == 0)
+                {
+                    possible = false;
+                    System.Media.SoundPlayer sp = new System.Media.SoundPlayer("Audio\\die.wav");
+                    sp.Play();
+                }
                 if (possible)
                 {
                     moving = true;
@@ -149,12 +156,18 @@ namespace RoboTek
                 }
                 if (objs_at_dest.Count == 0)
                 {
-                    if (level == 0)
-                        possible = false;
-                    target_lvl = 0;    
+                    possible = false;
+                    target_lvl = 0;
+                    System.Media.SoundPlayer sp = new System.Media.SoundPlayer("Audio\\die.wav");
+                    sp.Play();
                 }
                 if (possible && target_lvl != level)
                 {
+                    if ( target_lvl > 3 && level <= 3 )
+                    {
+                        System.Media.SoundPlayer sp = new System.Media.SoundPlayer("Audio\\ohhh.wav");
+                        sp.Play();
+                    }
                     if (target_lvl < level)
                         end_level = target_lvl;
                     else
