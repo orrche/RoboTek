@@ -30,27 +30,22 @@ namespace RoboTek
            
             gubben = map.getPlayer();
 
-            pf_Resize(null, null);
             pf.Paint += new PaintEventHandler(pf_Paint);
         }
 
         void pf_Paint(object sender, PaintEventArgs e)
         {
-          
             if (sw == null)
                 sw = Stopwatch.StartNew();
             sw.Reset();
             sw.Start();
 
-            if (bufl != null)
-            {
-                e.Graphics.ResetClip();
-                e.Graphics.Clear(Color.White);
-                map.Draw(e.Graphics);
+            e.Graphics.ResetClip();
+            e.Graphics.Clear(Color.White);
+            map.Draw(e.Graphics);
 
-            }
             sw.Stop();
-            if (times.Count >= 60)
+            if (times.Count >= 1000.0 / timer1.Interval)
             {
                 avg = 0;
                 foreach (TimeSpan ts in times)
@@ -63,16 +58,10 @@ namespace RoboTek
             times.Add(sw.Elapsed);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             pf.Refresh();
-            
-            this.Text = string.Format("Gubbe: [{0}, {1}, {2}] draw: frametime: {3}", gubben.getX(), gubben.getY(), gubben.getLevel(), avg);
+            this.Text = string.Format("Gubbe: [{0}, {1}, {2}] frametime/s: {3}ms", gubben.getX(), gubben.getY(), gubben.getLevel(), avg.ToString("N3"));
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -101,14 +90,6 @@ namespace RoboTek
             {
                 gubben.Jump();
             }
-        }
-
-        private void pf_Resize(object sender, EventArgs e)
-        {
-            if (bufl != null)
-                bufl.Dispose();
-            bufl = new Bitmap(pf.Width, pf.Height);
-            g = Graphics.FromImage(bufl);
         }
     }
 }

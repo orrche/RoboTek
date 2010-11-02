@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.pf = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.pf)).BeginInit();
             this.SuspendLayout();
             // 
             // pf
@@ -43,12 +44,12 @@
             this.pf.Name = "pf";
             this.pf.Size = new System.Drawing.Size(260, 238);
             this.pf.TabIndex = 0;
-            this.pf.Resize += new System.EventHandler(this.pf_Resize);
+            this.pf.TabStop = false;
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 40;
+            this.timer1.Interval = 20;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
@@ -60,6 +61,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.pf)).EndInit();
             this.ResumeLayout(false);
 
         }
