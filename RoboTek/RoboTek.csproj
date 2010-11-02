@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Challange.complex.cs" />
+    <Compile Include="Challange.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -21,12 +21,14 @@ namespace RoboTek
         public Form1()
         {
             InitializeComponent();
+           
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
            
 
             pf.Paint += new PaintEventHandler(pf_Paint);
+
         }
 
         void pf_Paint(object sender, PaintEventArgs e)
@@ -92,6 +94,16 @@ namespace RoboTek
             {
                 gubben.Activate();
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+
+            Challange c = new Challange(map, this);
+            c.Run();
+
+            MessageBox.Show("You used: " + c.line_numbers.Count + " commands");
         }
     }
 }

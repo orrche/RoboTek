@@ -82,6 +82,11 @@ namespace RoboTek
                 obj.getLevel() == level + 3);
         }
 
+        public virtual bool isIdle()
+        {
+            return !moving;
+        }
+
         public virtual void moveForward()
         {
             if (!moving)
