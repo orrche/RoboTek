@@ -38,8 +38,7 @@ namespace RoboTek
             if (bufl != null)
             {
                 g.ResetClip();
-                g.FillRectangle(Brushes.White, new Rectangle(0, 0, pf.Width, pf.Height));
-
+                g.Clear(Color.White);
                 map.Draw(g);
                 pf.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
             }
