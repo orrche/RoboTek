@@ -90,7 +90,10 @@ namespace RoboTek
 
                 for (int i = 0; i < objs_at_dest.Count; i++)
                 {
-                    if (objs_at_dest[i].getLevel() == level)
+                    if (objs_at_dest[i].getLevel() == level || 
+                        objs_at_dest[i].getLevel() == level + 1 || 
+                        objs_at_dest[i].getLevel() == level + 2 || 
+                        objs_at_dest[i].getLevel() == level + 3)
                     {
                         possible = false;
                         break;
