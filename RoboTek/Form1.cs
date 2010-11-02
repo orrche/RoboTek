@@ -13,7 +13,8 @@ namespace RoboTek
     {
         Movable gubben;
         Map map = new Map();
-
+        Bitmap bufl = null;
+            
         public Form1()
         {
             InitializeComponent();
@@ -31,17 +32,16 @@ namespace RoboTek
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Bitmap bufl = new Bitmap(pf.Width, pf.Height);
-            using (Graphics g = Graphics.FromImage(bufl))
+            if (bufl != null)
             {
-                g.FillRectangle(Brushes.White, new Rectangle(0, 0, pf.Width, pf.Height));
-                
-                map.Draw(g);
-                pf.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
+                using (Graphics g = Graphics.FromImage(bufl))
+                {
+                    g.FillRectangle(Brushes.White, new Rectangle(0, 0, pf.Width, pf.Height));
+
+                    map.Draw(g);
+                    pf.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
+                }
             }
-
-
-
             this.Text = string.Format("Gubbe: [{0}, {1}, {2}]", gubben.getX(), gubben.getY(), gubben.getLevel());
         }
 
@@ -71,6 +71,13 @@ namespace RoboTek
             {
                 gubben.Jump();
             }
+        }
+
+        private void pf_Resize(object sender, EventArgs e)
+        {
+            if (bufl != null)
+                bufl.Dispose();
+            bufl = new Bitmap(pf.Width, pf.Height);
         }
     }
 }

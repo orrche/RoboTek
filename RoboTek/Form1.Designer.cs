@@ -43,6 +43,7 @@
             this.pf.Name = "pf";
             this.pf.Size = new System.Drawing.Size(260, 238);
             this.pf.TabIndex = 0;
+            this.pf.Resize += new System.EventHandler(this.pf_Resize);
             // 
             // timer1
             // 
