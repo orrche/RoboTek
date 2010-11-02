@@ -31,10 +31,21 @@ namespace RoboTek
         protected Map map;
         protected String name;
 
+        protected static Region clip_region = null; 
         public MapObject(Map m, string name)
         {
             this.name = name;
             map = m;
+
+            // Initializing the clip region 
+            if (clip_region == null)
+            {
+                System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
+                path.AddLines(new Point[] { new Point(-map.half_tile_width, 0), new Point(0, map.half_tile_height), new Point(map.half_tile_width, 0), new Point(map.half_tile_width, -200), new Point(-map.half_tile_width, -200) });
+                clip_region = new Region(path);
+            }
+
+            // Loading the sprites
             for (int i = 0; i < 4; i++)
             {
                 walk_img[i] = new List<Image>();
@@ -96,10 +107,13 @@ namespace RoboTek
         }
         public virtual void Draw(Graphics g)
         {
+            clip_region.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height);
+            g.Clip = clip_region;
             g.DrawImage(walk_img[dir][current_sprite],
                    new Rectangle((x + y) * map.half_tile_width + image_offset_x, (x - y) * map.half_tile_height + offset_y + image_offset_y - level * 22, map.tile_width, walk_img[dir][current_sprite].Height),
                    new Rectangle(walk_img[dir][current_sprite].Width / 2 - map.half_tile_width - offset_x, 0, map.tile_width, walk_img[dir][current_sprite].Height),
                    GraphicsUnit.Pixel);
+            clip_region.Translate(-(x + y) * map.half_tile_width, -(x - y) * map.half_tile_height);
 
         }
 
