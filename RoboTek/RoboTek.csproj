@@ -330,6 +330,9 @@
     <Content Include="Sprites\gubbe\gubbe.walk.pov.90.019.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sprites\lightpad\lightpad.walk.pov.0.000.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sprites\wall\wall.walk.pov.0.000.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

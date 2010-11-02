@@ -60,7 +60,7 @@
   <mapobject name="wall" x="12" y="-3" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="12" y="-2" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="12" y="-1" level="-1" walkable="true"></mapobject>
-  <mapobject name="wall" x="12" y="0" level="-1" walkable="true"></mapobject>
+  <!-- Light pad pos <mapobject name="wall" x="12" y="0" level="-1" walkable="true"></mapobject> -->
   <mapobject name="wall" x="12" y="1" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="12" y="2" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="12" y="3" level="-1" walkable="true"></mapobject>
@@ -133,6 +133,8 @@
   <mapobject name="wall" x="8" y="0" level="1" walkable="true"></mapobject>
   <mapobject name="wall" x="8" y="1" level="2" walkable="true"></mapobject>
   <mapobject name="wall" x="7" y="1" level="3" walkable="true"></mapobject>
-  <movable name="gubbe" x="14" y="0" level="0"></movable>
+
+  <mapobject name="lightpad" x="12" y="0" level="-1" walkable="true"></mapobject>
+  <movable name="gubbe" x="9" y="0" level="0"></movable>
   
 </map>
