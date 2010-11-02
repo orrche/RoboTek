@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Xml;
 
 namespace RoboTek
 {
@@ -23,28 +24,51 @@ namespace RoboTek
         Movable dude;
 
         List<MapObject> objs = new List<MapObject>();
-        public Map()
+        public Map(string name)
         {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load("Maps\\" + name + "\\main.xml");
 
-            half_tile_height = tile_height / 2;
-            half_tile_width = tile_width / 2;
-            dude = new Movable(this, "gubbe");
-
-            objs.Add(dude);
-
-            for (int x = 0; x < 3; x++)
+            for (int dataNodes = 0; dataNodes < xmlDoc.ChildNodes.Count; dataNodes++)
             {
-
-                int level = 0;
-                for (int i = 0; i < x + 1; i++)
+                XmlNode dataNode = xmlDoc.ChildNodes[dataNodes];
+                if (dataNode.Name == "map")
                 {
-                    MapObject wall = new MapObject(this, "wall", true);
-                    wall.setPos(4 + x, level, i-1);
-                    objs.Add(wall);
+                    for (int childCount = 0; childCount < dataNode.ChildNodes.Count; childCount++)
+                    {
+                        XmlNode mapobj = dataNode.ChildNodes[childCount];
+                        
+                        if (mapobj.Name == "mapobject")
+                        {
+                            bool walkable = false;
+                            if ( mapobj.Attributes["walkable"] != null && mapobj.Attributes["walkable"].InnerText == "true")
+                                walkable = true;
 
+
+                            MapObject obj = new MapObject(this, mapobj.Attributes["name"].InnerText, walkable);
+                            obj.setPos(Convert.ToInt32(mapobj.Attributes["x"].InnerText),
+                                Convert.ToInt32(mapobj.Attributes["y"].InnerText),
+                                Convert.ToInt32(mapobj.Attributes["level"].InnerText));
+                            objs.Add(obj);
+                        }
+                        if (mapobj.Name == "movable")
+                        {
+                            Movable obj = new Movable(this, mapobj.Attributes["name"].InnerText);
+                            obj.setPos(Convert.ToInt32(mapobj.Attributes["x"].InnerText),
+                                Convert.ToInt32(mapobj.Attributes["y"].InnerText),
+                                Convert.ToInt32(mapobj.Attributes["level"].InnerText));
+                            objs.Add(obj);
+
+                            if (mapobj.Attributes["name"].InnerText == "gubbe")
+                                dude = obj;
+                        }
+                    }
                 }
             }
-
+            
+            half_tile_height = tile_height / 2;
+            half_tile_width = tile_width / 2;
+            
             ReSort();
 
         }

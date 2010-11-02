@@ -13,7 +13,7 @@ namespace RoboTek
     public partial class Form1 : Form
     {
         Movable gubben;
-        Map map = new Map();
+        Map map = new Map("level1");
         Bitmap bufl = null;
         Graphics g = null;
 
