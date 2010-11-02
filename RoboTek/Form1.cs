@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace RoboTek
 {
@@ -15,6 +16,12 @@ namespace RoboTek
         Map map = new Map();
         Bitmap bufl = null;
         Graphics g = null;
+
+        List<TimeSpan> times = new List<TimeSpan>();
+        Stopwatch sw;
+        double avg = 0;
+
+        bool kentDraw = true;
 
         public Form1()
         {
@@ -26,6 +33,38 @@ namespace RoboTek
             gubben = map.getPlayer();
 
             pf_Resize(null, null);
+            pf.Paint += new PaintEventHandler(pf_Paint);
+        }
+
+        void pf_Paint(object sender, PaintEventArgs e)
+        {
+            if (!kentDraw)
+            {
+                if (sw == null)
+                    sw = Stopwatch.StartNew();
+                sw.Reset();
+                sw.Start();
+
+                if (bufl != null)
+                {
+                    e.Graphics.ResetClip();
+                    e.Graphics.Clear(Color.White);
+                    map.Draw(e.Graphics);
+
+                }
+                sw.Stop();
+                if (times.Count >= 60)
+                {
+                    avg = 0;
+                    foreach (TimeSpan ts in times)
+                    {
+                        avg += ts.TotalMilliseconds;
+                    }
+                    avg /= times.Count;
+                    times.Clear();
+                }
+                times.Add(sw.Elapsed);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,15 +74,37 @@ namespace RoboTek
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (bufl != null)
+            if (!kentDraw)
+                pf.Refresh();
+            else
             {
-                g.ResetClip();
-                g.Clear(Color.White);
-                map.Draw(g);
-               
-                pf.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
+                if (sw == null)
+                    sw = Stopwatch.StartNew();
+                sw.Reset();
+                sw.Start();
+
+                if (bufl != null)
+                {
+                    g.ResetClip();
+                    g.Clear(Color.White);
+                    map.Draw(g);
+
+                    pf.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
+                }
+                sw.Stop();
+                if (times.Count >= 60)
+                {
+                    avg = 0;
+                    foreach (TimeSpan ts in times)
+                    {
+                        avg += ts.TotalMilliseconds;
+                    }
+                    avg /= times.Count;
+                    times.Clear();
+                }
+                times.Add(sw.Elapsed);
             }
-            this.Text = string.Format("Gubbe: [{0}, {1}, {2}]", gubben.getX(), gubben.getY(), gubben.getLevel());
+            this.Text = string.Format("Gubbe: [{0}, {1}, {2}] {4} draw: frametime: {3}", gubben.getX(), gubben.getY(), gubben.getLevel(), avg, kentDraw ? "kent" : "stefan");
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -71,6 +132,10 @@ namespace RoboTek
             else if (e.KeyCode == Keys.Space)
             {
                 gubben.Jump();
+            }
+            else if (e.KeyCode == Keys.K)
+            {
+                kentDraw = !kentDraw;
             }
         }
 
