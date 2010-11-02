@@ -74,6 +74,11 @@ namespace RoboTek
             } 
         }
 
+        public int getDir()
+        {
+            return dir;
+        }
+
         protected bool isFlyingObstruction(MapObject obj)
         {
             return (

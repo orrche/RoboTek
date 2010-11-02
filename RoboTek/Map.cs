@@ -26,6 +26,7 @@ namespace RoboTek
         Pen pen = new Pen(Brushes.Black);
         Player dude;
         string nextmap = "";
+        public bool finnished = false;
 
         List<MapObject> objs = new List<MapObject>();
         List<LightPad> lights = new List<LightPad>();
@@ -41,6 +42,10 @@ namespace RoboTek
 
         protected void LoadMap(string name)
         {
+            Properties.Settings.Default.level = name;
+            Properties.Settings.Default.Save();
+
+            finnished = false;
             objs.Clear();
             lights.Clear();
 
@@ -177,15 +182,16 @@ namespace RoboTek
             if (n == lights.Count)
             {
                 // Win
+                finnished = true;
                 if (nextmap != "")
                 {
-                    MessageBox.Show("You WIN!\r\nGet Ready for the next map " + nextmap);
-                    LoadMap(nextmap);
+                    //MessageBox.Show("You WIN!\r\nGet Ready for the next map " + nextmap);
+                    //LoadMap(nextmap);
                 }
                 else
                 {
-                    MessageBox.Show("YOU COMPLETED THE GAME !!!\r\nCONGRATULATIONS");
-                    LoadMap("level1");
+                    //MessageBox.Show("YOU COMPLETED THE GAME !!!\r\nCONGRATULATIONS");
+                    //LoadMap("level1");
 
                 }
                 return true;
@@ -193,6 +199,14 @@ namespace RoboTek
 
             return false;
 
+        }
+
+        public void LoadNextMap()
+        {
+            if (nextmap == "")
+                LoadMap("level1");
+            else
+                LoadMap(nextmap);
         }
     }
 }

@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-
+using System.Threading;
 namespace RoboTek
 {
     public partial class Form1 : Form
     {
-        Map map = new Map("level1");
+        Map map;
 
         List<TimeSpan> times = new List<TimeSpan>();
         Stopwatch sw;
@@ -21,7 +21,8 @@ namespace RoboTek
         public Form1()
         {
             InitializeComponent();
-           
+            map = new Map(Properties.Settings.Default.level);
+
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -29,6 +30,10 @@ namespace RoboTek
 
             pf.Paint += new PaintEventHandler(pf_Paint);
 
+
+            Thread oThread = new Thread(new ThreadStart(this.runtAutomater));
+            oThread.Start();
+            
         }
 
         void pf_Paint(object sender, PaintEventArgs e)
@@ -96,14 +101,29 @@ namespace RoboTek
             }
         }
 
+        private void runtAutomater()
+        {
+            Challange c = new Challange(map, this);
+            c.Run();
+            c._wait();
+            if (map.finnished && c.cheating == false)
+            {
+                if (MessageBox.Show("Du använde: " + c.line_numbers.Count + " kommandon\r\noch klarade kartan\r\nVill du ladda nästa karta?", "WIN", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    map.LoadNextMap();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du använde: " + c.line_numbers.Count + " kommandon\r\nmen lyckades inte klara det hela", "FAIL");
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
-
-            Challange c = new Challange(map, this);
-            c.Run();
-
-            MessageBox.Show("You used: " + c.line_numbers.Count + " commands");
+            
+            
         }
     }
 }

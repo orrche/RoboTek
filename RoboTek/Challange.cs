@@ -9,23 +9,26 @@ namespace RoboTek
     {
         void f1()
         {
-
-            forward();
-            forward();
-
         }
 
         void f2()
         {
-            f1();
+         
+            jump();
+            forward();
+            forward();
+            activate();
+            jump();
         }
 
+        void f3()
+        {
+
+        }
 
         public void Run()
         {
             f2();
-
-            Console.WriteLine("wtf");
         }
     }
 }
