@@ -42,7 +42,7 @@
             this.pf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pf.Location = new System.Drawing.Point(12, 12);
             this.pf.Name = "pf";
-            this.pf.Size = new System.Drawing.Size(260, 238);
+            this.pf.Size = new System.Drawing.Size(972, 455);
             this.pf.TabIndex = 0;
             this.pf.TabStop = false;
             // 
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(996, 479);
             this.Controls.Add(this.pf);
             this.Name = "Form1";
             this.Text = "Form1";
