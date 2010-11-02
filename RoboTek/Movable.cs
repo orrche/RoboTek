@@ -74,6 +74,14 @@ namespace RoboTek
             } 
         }
 
+        protected bool isFlyingObstruction(MapObject obj)
+        {
+            return (
+                obj.getLevel() == level + 1 ||
+                obj.getLevel() == level + 2 ||
+                obj.getLevel() == level + 3);
+        }
+
         public virtual void moveForward()
         {
             if (!moving)
@@ -90,10 +98,7 @@ namespace RoboTek
 
                 for (int i = 0; i < objs_at_dest.Count; i++)
                 {
-                    if (objs_at_dest[i].getLevel() == level || 
-                        objs_at_dest[i].getLevel() == level + 1 || 
-                        objs_at_dest[i].getLevel() == level + 2 || 
-                        objs_at_dest[i].getLevel() == level + 3)
+                    if (objs_at_dest[i].getLevel() == level || isFlyingObstruction(objs_at_dest[i]))
                     {
                         possible = false;
                         break;
@@ -121,7 +126,7 @@ namespace RoboTek
                 for (int i = 0; i < objs_at_dest.Count; i++)
                 {
                     int obj_level = objs_at_dest[i].getLevel();
-                    if (obj_level == level + 1)
+                    if (isFlyingObstruction(objs_at_dest[i]))
                     {
                         possible = false;
                         break;
