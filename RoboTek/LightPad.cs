@@ -26,7 +26,10 @@ namespace RoboTek
         public override void Activate()
         {
             if (walk_img == off_img)
+            {
                 walk_img = on_img;
+                map.CheckForWin();
+            }
             else
                 walk_img = off_img;
 
@@ -36,6 +39,11 @@ namespace RoboTek
         public override bool Activatable()
         {
             return true;
+        }
+
+        public bool Activated()
+        {
+            return walk_img == on_img;
         }
     }
 }

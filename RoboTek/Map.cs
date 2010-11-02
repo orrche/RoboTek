@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Drawing;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace RoboTek
@@ -24,6 +27,7 @@ namespace RoboTek
         Player dude;
 
         List<MapObject> objs = new List<MapObject>();
+        List<LightPad> lights = new List<LightPad>();
         public Map(string name)
         {
 
@@ -32,6 +36,7 @@ namespace RoboTek
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load("Maps\\" + name + "\\main.xml");
+
 
 
             for (int dataNodes = 0; dataNodes < xmlDoc.ChildNodes.Count; dataNodes++)
@@ -76,6 +81,7 @@ namespace RoboTek
                                 Convert.ToInt32(mapobj.Attributes["level"].InnerText));
                             objs.Add(obj);
 
+                            lights.Add(obj);
                         }
                     }
                 }
@@ -140,6 +146,28 @@ namespace RoboTek
             in_draw = false;
             if (sort_queued)
                 ReSort();
+        }
+
+
+        public bool CheckForWin()
+        {
+            int n = 0;
+
+            for (int i = 0; i < lights.Count; i++)
+            {
+                if (lights[i].Activated())
+                    n++;
+            }
+
+            if (n == lights.Count)
+            {
+                // Win
+                MessageBox.Show("You WIN!");
+                return true;
+            }
+
+            return false;
+
         }
     }
 }
