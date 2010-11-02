@@ -55,6 +55,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Ghost.cs" />
+    <Compile Include="LightPad.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapObject.cs" />
     <Compile Include="Movable.cs" />
@@ -330,8 +331,11 @@
     <Content Include="Sprites\gubbe\gubbe.walk.pov.90.019.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sprites\lightpad\lightpad.on.pov.0.000.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sprites\lightpad\lightpad.walk.pov.0.000.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprites\wall\wall.walk.pov.0.000.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

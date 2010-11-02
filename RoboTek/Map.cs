@@ -21,7 +21,7 @@ namespace RoboTek
         bool in_draw = false;
 
         Pen pen = new Pen(Brushes.Black);
-        Movable dude;
+        Player dude;
 
         List<MapObject> objs = new List<MapObject>();
         public Map(string name)
@@ -57,9 +57,9 @@ namespace RoboTek
                                 Convert.ToInt32(mapobj.Attributes["level"].InnerText));
                             objs.Add(obj);
                         }
-                        if (mapobj.Name == "movable")
+                        if (mapobj.Name == "player")
                         {
-                            Movable obj = new Movable(this, mapobj.Attributes["name"].InnerText);
+                            Player obj = new Player(this, mapobj.Attributes["name"].InnerText);
                             obj.setPos(Convert.ToInt32(mapobj.Attributes["x"].InnerText),
                                 Convert.ToInt32(mapobj.Attributes["y"].InnerText),
                                 Convert.ToInt32(mapobj.Attributes["level"].InnerText));
@@ -67,6 +67,15 @@ namespace RoboTek
 
                             if (mapobj.Attributes["name"].InnerText == "gubbe")
                                 dude = obj;
+                        }
+                        if (mapobj.Name == "lightpad")
+                        {
+                            LightPad obj = new LightPad(this, mapobj.Attributes["name"].InnerText);
+                            obj.setPos(Convert.ToInt32(mapobj.Attributes["x"].InnerText),
+                                Convert.ToInt32(mapobj.Attributes["y"].InnerText),
+                                Convert.ToInt32(mapobj.Attributes["level"].InnerText));
+                            objs.Add(obj);
+
                         }
                     }
                 }
@@ -103,7 +112,7 @@ namespace RoboTek
                 objs.Sort();
         }
 
-        public Movable getPlayer()
+        public Player getPlayer()
         {
             return dude;
         }

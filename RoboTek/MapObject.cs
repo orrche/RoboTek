@@ -127,6 +127,16 @@ namespace RoboTek
            
         }
 
+        public virtual void Activate()
+        {
+
+        }
+
+        public virtual bool Activatable()
+        {
+            return false;
+        }
+
         public virtual void Update()
         {
         }

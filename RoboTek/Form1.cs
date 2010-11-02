@@ -90,6 +90,10 @@ namespace RoboTek
             {
                 gubben.Jump();
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                gubben.Activate();
+            }
         }
     }
 }
