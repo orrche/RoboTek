@@ -12,10 +12,7 @@ namespace RoboTek
 {
     public partial class Form1 : Form
     {
-        Movable gubben;
         Map map = new Map("level1");
-        Bitmap bufl = null;
-        Graphics g = null;
 
         List<TimeSpan> times = new List<TimeSpan>();
         Stopwatch sw;
@@ -28,7 +25,6 @@ namespace RoboTek
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
            
-            gubben = map.getPlayer();
 
             pf.Paint += new PaintEventHandler(pf_Paint);
         }
@@ -61,11 +57,13 @@ namespace RoboTek
         private void timer1_Tick(object sender, EventArgs e)
         {
             pf.Refresh();
-            this.Text = string.Format("Gubbe: [{0}, {1}, {2}] frametime/s: {3}ms", gubben.getX(), gubben.getY(), gubben.getLevel(), avg.ToString("N3"));
+            this.Text = string.Format("Gubbe: [{0}, {1}, {2}] frametime/s: {3}ms", map.getPlayer().getX(), map.getPlayer().getY(), map.getPlayer().getLevel(), avg.ToString("N3"));
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+
+            Movable gubben = map.getPlayer();
             if (e.KeyCode == Keys.Up)
             {
                 gubben.setDir(3);

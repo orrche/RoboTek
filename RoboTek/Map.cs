@@ -25,6 +25,7 @@ namespace RoboTek
 
         Pen pen = new Pen(Brushes.Black);
         Player dude;
+        string nextmap = "";
 
         List<MapObject> objs = new List<MapObject>();
         List<LightPad> lights = new List<LightPad>();
@@ -33,6 +34,15 @@ namespace RoboTek
 
             half_tile_height = tile_height / 2;
             half_tile_width = tile_width / 2;
+            
+            LoadMap(name);
+
+        }
+
+        protected void LoadMap(string name)
+        {
+            objs.Clear();
+            lights.Clear();
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load("Maps\\" + name + "\\main.xml");
@@ -45,14 +55,19 @@ namespace RoboTek
                 XmlNode dataNode = xmlDoc.ChildNodes[dataNodes];
                 if (dataNode.Name == "map")
                 {
+                    if (dataNode.Attributes["next"] != null)
+                        nextmap = dataNode.Attributes["next"].InnerText;
+                    else
+                        nextmap = "";
+
                     for (int childCount = 0; childCount < dataNode.ChildNodes.Count; childCount++)
                     {
                         XmlNode mapobj = dataNode.ChildNodes[childCount];
-                        
+
                         if (mapobj.Name == "mapobject")
                         {
                             bool walkable = false;
-                            if ( mapobj.Attributes["walkable"] != null && mapobj.Attributes["walkable"].InnerText == "true")
+                            if (mapobj.Attributes["walkable"] != null && mapobj.Attributes["walkable"].InnerText == "true")
                                 walkable = true;
 
 
@@ -86,7 +101,7 @@ namespace RoboTek
                     }
                 }
             }
-            
+
             ReSort();
 
         }
@@ -162,7 +177,17 @@ namespace RoboTek
             if (n == lights.Count)
             {
                 // Win
-                MessageBox.Show("You WIN!");
+                if (nextmap != "")
+                {
+                    MessageBox.Show("You WIN!\r\nGet Ready for the next map " + nextmap);
+                    LoadMap(nextmap);
+                }
+                else
+                {
+                    MessageBox.Show("YOU COMPLETED THE GAME !!!\r\nCONGRATULATIONS");
+                    LoadMap("level1");
+
+                }
                 return true;
             }
 
