@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <map>
-  <mapobject name="wall" x="7" y="0" level="0"></mapobject>
-  <movable name="gubbe" x="0" y="0" level="0"></movable>
+  <mapobject name="wall" x="7" y="0" level="0" walkable="true"></mapobject>
+  <movable name="gubbe" x="1" y="0" level="0"></movable>
   
 </map>

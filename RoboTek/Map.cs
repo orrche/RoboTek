@@ -26,11 +26,17 @@ namespace RoboTek
         List<MapObject> objs = new List<MapObject>();
         public Map(string name)
         {
+
+            half_tile_height = tile_height / 2;
+            half_tile_width = tile_width / 2;
+
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load("Maps\\" + name + "\\main.xml");
 
+
             for (int dataNodes = 0; dataNodes < xmlDoc.ChildNodes.Count; dataNodes++)
             {
+
                 XmlNode dataNode = xmlDoc.ChildNodes[dataNodes];
                 if (dataNode.Name == "map")
                 {
@@ -65,9 +71,6 @@ namespace RoboTek
                     }
                 }
             }
-            
-            half_tile_height = tile_height / 2;
-            half_tile_width = tile_width / 2;
             
             ReSort();
 
