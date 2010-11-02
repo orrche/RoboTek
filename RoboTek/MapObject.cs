@@ -59,7 +59,7 @@ namespace RoboTek
                 }
             }
 
-            image_offset_x = -map.half_tile_width;
+            image_offset_x = -(walk_img[0][0].Width/2); // Uhm why?
             image_offset_y = -walk_img[0][0].Height / 2-44; // This is sooo bad
 
         }
@@ -107,13 +107,14 @@ namespace RoboTek
         }
         public virtual void Draw(Graphics g)
         {
-            clip_region.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height);
+            clip_region.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height - level * 22);
             g.Clip = clip_region;
-            g.DrawImage(walk_img[dir][current_sprite],
-                   new Rectangle((x + y) * map.half_tile_width + image_offset_x, (x - y) * map.half_tile_height + offset_y + image_offset_y - level * 22, map.tile_width, walk_img[dir][current_sprite].Height),
-                   new Rectangle(walk_img[dir][current_sprite].Width / 2 - map.half_tile_width - offset_x, 0, map.tile_width, walk_img[dir][current_sprite].Height),
-                   GraphicsUnit.Pixel);
-            clip_region.Translate(-(x + y) * map.half_tile_width, -(x - y) * map.half_tile_height);
+            
+            g.DrawImageUnscaled(walk_img[dir][current_sprite],
+                (x + y) * map.half_tile_width + image_offset_x + offset_x,
+                (x - y) * map.half_tile_height + offset_y + image_offset_y - level * 22
+            );
+            clip_region.Translate(-(x + y) * map.half_tile_width, -((x - y) * map.half_tile_height - level * 22));
 
         }
 

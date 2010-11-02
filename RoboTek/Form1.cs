@@ -23,6 +23,8 @@ namespace RoboTek
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
            
             gubben = map.getPlayer();
+
+            pf_Resize(null, null);
         }
 
         private void button1_Click(object sender, EventArgs e)

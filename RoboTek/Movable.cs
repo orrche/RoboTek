@@ -21,21 +21,48 @@ namespace RoboTek
 
         protected bool moving = false;
 
+        protected static Region[] sub_clip_region = new Region[2]; 
+
         public Movable(Map m, string name)
             : base(m, name)
         {
             ghost = new Ghost(this, m);
             map.addObj(ghost);
+
+            if (sub_clip_region[0] == null)
+            {
+                System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
+                path.AddLines(new Point[] { new Point(map.half_tile_width, 0), new Point(0, map.half_tile_height), new Point(map.half_tile_width, map.tile_height), new Point(map.tile_width, map.half_tile_height), new Point(map.tile_width, -200), new Point(map.half_tile_width, -200) });
+                System.Drawing.Drawing2D.GraphicsPath path2 = new System.Drawing.Drawing2D.GraphicsPath();
+                path2.AddLines(new Point[] { new Point(-map.half_tile_width, 0), new Point(0, map.half_tile_height), new Point(-map.half_tile_width, map.tile_height), new Point(-map.tile_width, map.half_tile_height), new Point(-map.tile_width, -200), new Point(-map.half_tile_width, -200) });
+
+                System.Drawing.Drawing2D.GraphicsPath path3 = new System.Drawing.Drawing2D.GraphicsPath();
+                path3.AddLines(new Point[] { new Point(-200, -200), new Point(0, map.half_tile_height), new Point(-map.half_tile_width, map.tile_height), new Point(-map.tile_width, map.half_tile_height), new Point(-map.tile_width, -200), new Point(-map.half_tile_width, -200) });
+                
+                sub_clip_region[0] = new Region(path2);
+                sub_clip_region[1] = new Region(path);
+
+                //sub_clip_region[0] = sub_clip_region[1] = clip_region;
+            }
         }
 
 
 
         public virtual void DrawSecond(Graphics g)
         {
-            g.DrawImage(walk_img[dir][current_sprite],
-                   new Rectangle((x + y + 2 * dir_calc[dir, 0]) * map.half_tile_width + image_offset_x, (x - y) * map.half_tile_height + offset_y + image_offset_y - level * 22, map.tile_width, walk_img[dir][current_sprite].Height),
-                   new Rectangle(walk_img[dir][current_sprite].Width / 2 - map.half_tile_width - offset_x + dir_calc[dir, 0] * map.tile_width, 0, map.tile_width, walk_img[dir][current_sprite].Height),
-                   GraphicsUnit.Pixel);
+            Region cliping_reg = null;
+            if (dir_calc[dir, 0] < 0)
+                cliping_reg = sub_clip_region[0];
+            else
+                cliping_reg = sub_clip_region[1];
+
+            cliping_reg.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height - level * 22);
+            g.Clip = cliping_reg;
+            g.DrawImageUnscaled(walk_img[dir][current_sprite],
+                (x + y) * map.half_tile_width + image_offset_x + offset_x,
+                (x - y) * map.half_tile_height + offset_y + image_offset_y - level*22
+            );
+            cliping_reg.Translate(-(x + y) * map.half_tile_width, -((x - y) * map.half_tile_height - level * 22));
         }
         public override void setDir(int new_dir)
         {
