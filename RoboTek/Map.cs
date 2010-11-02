@@ -10,6 +10,7 @@ namespace RoboTek
     {
         public int tile_width = 84;
         public int tile_height = 42;
+        public int level_height = 22;
 
         public int half_tile_width;
         public int half_tile_height;
@@ -37,7 +38,7 @@ namespace RoboTek
                 int level = 0;
                 for (int i = 0; i < x + 1; i++)
                 {
-                    MapObject wall = new MapObject(this, "wall");
+                    MapObject wall = new MapObject(this, "wall", true);
                     wall.setPos(4 + x, level, i-1);
                     objs.Add(wall);
 

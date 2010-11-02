@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pf = new System.Windows.Forms.Panel();
+            this.pf = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -66,7 +66,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pf;
+        private System.Windows.Forms.PictureBox pf;
         private System.Windows.Forms.Timer timer1;
     }
 }

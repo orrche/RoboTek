@@ -57,13 +57,13 @@ namespace RoboTek
             else
                 cliping_reg = sub_clip_region[1];
 
-            cliping_reg.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height - level * 22);
+            cliping_reg.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height - level * map.level_height);
             g.Clip = cliping_reg;
             g.DrawImageUnscaled(walk_img[dir][current_sprite],
                 (x + y) * map.half_tile_width + image_offset_x + offset_x,
-                (x - y) * map.half_tile_height + offset_y + image_offset_y - level*22
+                (x - y) * map.half_tile_height + offset_y + image_offset_y - level * map.level_height
             );
-            cliping_reg.Translate(-(x + y) * map.half_tile_width, -((x - y) * map.half_tile_height - level * 22));
+            cliping_reg.Translate(-(x + y) * map.half_tile_width, -((x - y) * map.half_tile_height - level * map.level_height));
         }
         public override void setDir(int new_dir)
         {

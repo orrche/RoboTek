@@ -30,10 +30,25 @@ namespace RoboTek
 
         protected Map map;
         protected String name;
+        protected bool walkable;
 
-        protected static Region clip_region = null; 
+        protected static Region clip_region = null;
+        protected static Region ground_clip_region = null; // For convenience when the artist (me) doesn't manage to follow the rules
+
+        protected Region clip = null;
         public MapObject(Map m, string name)
         {
+            init(m, name, false);
+        }
+
+        public MapObject(Map m, string name, bool is_walkable)
+        {
+            init(m, name, is_walkable);
+        }
+
+        public void init(Map m, string name, bool is_walkable)
+        {
+            walkable = is_walkable;
             this.name = name;
             map = m;
 
@@ -43,7 +58,17 @@ namespace RoboTek
                 System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
                 path.AddLines(new Point[] { new Point(-map.half_tile_width, 0), new Point(0, map.half_tile_height), new Point(map.half_tile_width, 0), new Point(map.half_tile_width, -200), new Point(-map.half_tile_width, -200) });
                 clip_region = new Region(path);
+
+                // Assuming that the ground thing isn't set either
+                System.Drawing.Drawing2D.GraphicsPath path2 = new System.Drawing.Drawing2D.GraphicsPath();
+                path2.AddLines(new Point[] { new Point(-map.half_tile_width, 0), new Point(0, map.half_tile_height), new Point(map.half_tile_width, 0), new Point(map.half_tile_width, -map.level_height), new Point(0, -map.level_height - map.half_tile_height) , new Point(-map.half_tile_width, -map.level_height) });
+                ground_clip_region = new Region(path2);
             }
+
+            if (walkable)
+                clip = ground_clip_region;
+            else
+                clip = clip_region;
 
             // Loading the sprites
             for (int i = 0; i < 4; i++)
@@ -59,11 +84,11 @@ namespace RoboTek
                 }
             }
 
-            image_offset_x = -(walk_img[0][0].Width/2); // Uhm why?
-            image_offset_y = -walk_img[0][0].Height / 2-44; // This is sooo bad
+            image_offset_x = -(walk_img[0][0].Width / 2);
+            image_offset_y = -walk_img[0][0].Height / 2 - 44; // This is sooo bad
 
         }
-
+        
         public int getLevel()
         {
             return level;
@@ -107,14 +132,14 @@ namespace RoboTek
         }
         public virtual void Draw(Graphics g)
         {
-            clip_region.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height - level * 22);
-            g.Clip = clip_region;
+            clip.Translate((x + y) * map.half_tile_width, (x - y) * map.half_tile_height - level * map.level_height);
+            g.Clip = clip;
             
             g.DrawImageUnscaled(walk_img[dir][current_sprite],
                 (x + y) * map.half_tile_width + image_offset_x + offset_x,
-                (x - y) * map.half_tile_height + offset_y + image_offset_y - level * 22
+                (x - y) * map.half_tile_height + offset_y + image_offset_y - level * map.level_height
             );
-            clip_region.Translate(-(x + y) * map.half_tile_width, -((x - y) * map.half_tile_height - level * 22));
+            clip.Translate(-(x + y) * map.half_tile_width, -((x - y) * map.half_tile_height - level * map.level_height));
 
         }
 

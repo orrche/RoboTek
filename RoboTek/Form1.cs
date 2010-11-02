@@ -40,6 +40,7 @@ namespace RoboTek
                 g.ResetClip();
                 g.Clear(Color.White);
                 map.Draw(g);
+               
                 pf.CreateGraphics().DrawImageUnscaled(bufl, 0, 0);
             }
             this.Text = string.Format("Gubbe: [{0}, {1}, {2}]", gubben.getX(), gubben.getY(), gubben.getLevel());
