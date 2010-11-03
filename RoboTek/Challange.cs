@@ -23,21 +23,17 @@ namespace RoboTek
 
         void f1()
         {
+
         }
 
         void f2()
         {
-            forward();
-            forward();
-            turn_left();
-            forward();
-            forward();
 
         }
 
         public void Run()
         {
-            f2();
+
         }
     }
 }
