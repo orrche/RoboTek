@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<map next="level4" acc_score="10">
+<map next="" acc_score="10">
   <!-- Ground -->
   <mapobject name="wall" x="7" y="-2" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="7" y="-1" level="-1" walkable="true"></mapobject>
@@ -40,9 +40,9 @@
   <mapobject name="wall" x="11" y="-2" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="11" y="-1" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="11" y="0" level="-1" walkable="true"></mapobject>
-  <!-- Light pad pos <mapobject name="wall" x="11" y="1" level="-1" walkable="true"></mapobject>
+  <mapobject name="wall" x="11" y="1" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="11" y="2" level="-1" walkable="true"></mapobject>
-  <mapobject name="wall" x="11" y="3" level="-1" walkable="true"></mapobject> -->
+  <mapobject name="wall" x="11" y="3" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="11" y="4" level="-1" walkable="true"></mapobject>
   <mapobject name="wall" x="11" y="5" level="-1" walkable="true"></mapobject>
 
@@ -74,19 +74,27 @@
   <mapobject name="wall" x="14" y="5" level="-1" walkable="true"></mapobject>
 
   <!-- Middle wall-->
-  <mapobject name="wall" x="9" y="5" level="0" walkable="true"></mapobject>
-  <mapobject name="wall" x="9" y="4" level="0" walkable="true"></mapobject>
+  <mapobject name="wall" x="9" y="3" level="1" walkable="true"></mapobject>
+  <mapobject name="wall" x="9" y="2" level="1" walkable="true"></mapobject>
   <mapobject name="wall" x="9" y="3" level="0" walkable="true"></mapobject>
   <mapobject name="wall" x="9" y="2" level="0" walkable="true"></mapobject>
   <mapobject name="wall" x="9" y="1" level="0" walkable="true"></mapobject>
-  <mapobject name="wall" x="9" y="0" level="0" walkable="true"></mapobject>
-  <mapobject name="wall" x="9" y="-1" level="0" walkable="true"></mapobject>
-  <mapobject name="wall" x="9" y="-2" level="0" walkable="true"></mapobject>
 
-  <lightpad name="lightpad" x="11" y="1" level="-1" walkable="true"></lightpad>
-  <lightpad name="lightpad" x="11" y="3" level="-1" walkable="true"></lightpad>
-  <lightpad name="lightpad" x="11" y="2" level="-1" walkable="true"></lightpad>
+  <mapobject name="wall" x="9" y="3" level="0" walkable="true"></mapobject>
+  <mapobject name="wall" x="10" y="3" level="0" walkable="true"></mapobject>
+  <mapobject name="wall" x="11" y="3" level="0" walkable="true"></mapobject>
+  <mapobject name="wall" x="12" y="3" level="0" walkable="true"></mapobject>
+  <mapobject name="wall" x="13" y="3" level="0" walkable="true"></mapobject>
+  <mapobject name="wall" x="14" y="3" level="0" walkable="true"></mapobject>
+
+  <mapobject name="wall" x="9" y="3" level="1" walkable="true"></mapobject>
+  <mapobject name="wall" x="10" y="3" level="1" walkable="true"></mapobject>
+  <mapobject name="wall" x="11" y="3" level="1" walkable="true"></mapobject>
+  <mapobject name="wall" x="12" y="3" level="1" walkable="true"></mapobject>
+  <mapobject name="wall" x="13" y="3" level="1" walkable="true"></mapobject>
+
+  <lightpad name="lightpad" x="14" y="3" level="1" walkable="true"></lightpad>
   
-  <player name="gubbe" x="7" y="1" level="0"></player>
+  <player name="gubbe" x="9" y="-1" level="0"></player>
 
 </map>
